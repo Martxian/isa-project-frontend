@@ -4,10 +4,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Form from "../components/Form";
 import ErrorMessage from "../components/ErrorMessage";
 
-export default function PasswordReset() {
+export default function Reset() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -18,21 +17,17 @@ export default function PasswordReset() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
     setError("");
     try {
-      const token = getUrlParameter("jwt");
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/reset-password`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ password }),
-        }
-      );
+      const authUrl = "https://isa-singh.azurewebsites.net/reset-password";
+      const response = await fetch(authUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ password }),
+      });
 
       if (!response.ok) throw new Error("Failed to reset password");
 
@@ -41,8 +36,6 @@ export default function PasswordReset() {
       );
     } catch (error) {
       setError("Invalid password reset request.");
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -50,7 +43,6 @@ export default function PasswordReset() {
     <Form
       title="Reset Password"
       onSubmit={handleSubmit}
-      isLoading={isLoading}
       buttonText="Reset Password"
     >
       <div className="space-y-4 rounded-md">

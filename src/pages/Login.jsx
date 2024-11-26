@@ -1,21 +1,20 @@
 // src/pages/Login.jsx
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Form from "../components/Form";
 import ErrorMessage from "../components/ErrorMessage";
 
 export default function Login() {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
     setError("");
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
+      const authUrl = "https://isa-singh.azurewebsites.net/login";
+      const response = await fetch(authUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(credentials),
@@ -26,8 +25,6 @@ export default function Login() {
       navigate("/");
     } catch (error) {
       setError("Invalid username or password.");
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -35,7 +32,6 @@ export default function Login() {
     <Form
       title="Sign in to your account"
       onSubmit={handleSubmit}
-      isLoading={isLoading}
       buttonText="Sign in"
     >
       <div className="space-y-4 rounded-md">
@@ -80,6 +76,20 @@ export default function Login() {
         </div>
       </div>
       {error && <ErrorMessage message={error} />}
+      <div className="flex justify-between mt-4">
+        <Link
+          to="/register"
+          className="text-sm text-blue-400 hover:text-blue-300 transition-colors"
+        >
+          Create an account
+        </Link>
+        <Link
+          to="/forgot"
+          className="text-sm text-blue-400 hover:text-blue-300 transition-colors"
+        >
+          Forgot your password?
+        </Link>
+      </div>
     </Form>
   );
 }

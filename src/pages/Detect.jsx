@@ -15,7 +15,7 @@ export default function Detect() {
     const formData = new FormData(event.target);
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/detect`, {
+      const response = await fetch("/detect", {
         method: "POST",
         body: formData,
       });

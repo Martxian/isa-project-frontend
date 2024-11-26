@@ -31,12 +31,3 @@ To start the development server, run:
     ```
 
 This will start the Vite development server on http://localhost:8080.
-
-## Usage
-
-## Environment Variables
-Create a .env file in the root of the project with the following content:
-
-```bash
-VITE_API_URL=https://your-api-url.com
-```

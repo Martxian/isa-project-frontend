@@ -10,7 +10,7 @@ export default function Message() {
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
-    setMessage(params.get("message") || "");
+    setMessage(params.get("message") || "Nothing to see here");
     setAnchor(params.get("anchor") || "");
     setLink(params.get("link") || "");
   }, [location.search]);

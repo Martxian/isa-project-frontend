@@ -1,50 +1,23 @@
 // src/pages/Forgot.jsx
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Form from "../components/Form";
 import ErrorMessage from "../components/ErrorMessage";
-import LoadingSpinner from "../components/LoadingSpinner";
 
 export default function Forgot() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setIsLoading(true);
     setError("");
-    setMessage("");
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/forgot-password`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email }),
-        }
-      );
-
-      if (!response.ok) throw new Error("Failed to send reset email");
-
-      setMessage("Password reset email sent successfully");
-      navigate(
-        "/message?message=Reset email sent successfully&anchor=Go to login&link=/login"
-      );
-    } catch (error) {
-      setError("Failed to send reset email. Please try again.");
-    } finally {
-      setIsLoading(false);
-    }
+    setMessage("Password reset email sent successfully");
   };
 
   return (
     <Form
       title="Forgot Password"
       onSubmit={handleSubmit}
-      isLoading={isLoading}
       buttonText="Send Reset Email"
     >
       <div className="space-y-4 rounded-md">

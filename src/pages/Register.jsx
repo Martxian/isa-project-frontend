@@ -1,3 +1,4 @@
+// 
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Form from "../components/Form";
@@ -6,15 +7,14 @@ import ErrorMessage from "../components/ErrorMessage";
 export default function Register() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
     setError("");
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/register`, {
+      const registerUrl = "https://isa-singh.azurewebsites.net/register";
+      const response = await fetch(registerUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -25,8 +25,6 @@ export default function Register() {
       navigate("/login?registered=true");
     } catch (error) {
       setError("Registration failed. Please try again.");
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -34,7 +32,6 @@ export default function Register() {
     <Form
       title="Create your account"
       onSubmit={handleSubmit}
-      isLoading={isLoading}
       buttonText="Register"
     >
       <div className="space-y-4 rounded-md">

@@ -1,15 +1,15 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import { VerifyRoute } from "./components/VerifyRoute";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Dashboard from './pages/Dashboard'
-import PasswordReset from './pages/PasswordReset'
-import Forgot from './pages/Forgot'
+import Dashboard from "./pages/Dashboard";
+import Reset from "./pages/Reset";
+import Forgot from "./pages/Forgot";
 import Register from "./pages/Register";
-import Message from './pages/Message'
-import Detect from './pages/Detect'
-import Admin from './pages/Admin'
+import Message from "./pages/Message";
+import Detect from "./pages/Detect";
+import Admin from "./pages/Admin";
+import NotFound from "./pages/NotFound";
 // import './App.css'
 
 function App() {
@@ -22,12 +22,13 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/password-reset" element={<PasswordReset />} />
+            <Route path="/password-reset" element={<Reset />} />
             <Route path="/forgot" element={<Forgot />} />
             <Route path="/register" element={<Register />} />
             <Route path="/message" element={<Message />} />
             <Route path="/detect" element={<Detect />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
       </div>
